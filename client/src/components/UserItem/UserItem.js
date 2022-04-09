@@ -6,6 +6,10 @@ import './style.css'
 
 const UserItem = ({ user }) => {
 
+    // if (!user) {
+    //     return null;
+    // }
+
     return (
         <Link id='user-item-link' key={user._id} to={user._id}>
             <div
@@ -14,7 +18,7 @@ const UserItem = ({ user }) => {
                 <div id='items'><strong>Name: </strong>{user.firstName} {user.lastName}</div>
                 <div id='items'><strong>Login name: </strong>{user.loginName}</div>
                 <div id='items'><strong>Status: </strong>{user.userStatus}</div>
-                <div id='items'><strong>Own recipes: </strong>{user.ownRecipes.length}</div>
+                <div id='items'><strong>Own recipes: </strong>{user.ownRecipes?.length}</div>
             </div>
         </Link>
     )

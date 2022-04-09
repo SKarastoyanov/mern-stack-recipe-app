@@ -1,5 +1,4 @@
 const express = require('express');
-const { append } = require('express/lib/response');
 const router = express.Router();
 
 //User Model
@@ -21,6 +20,7 @@ router.get('/:id', (req, res) => {
     User.findById(_id)
         .then(user => res.json(user))
 });
+
 
 //@route POST api/users
 //@desc  Create A User
@@ -58,7 +58,6 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const { id: _id } = req.params;
     const {
-        id,
         firstName,
         lastName,
         loginName,
@@ -74,7 +73,6 @@ router.put('/:id', (req, res) => {
     } = req.body;
 
     const newUser = {
-        _id,
         firstName,
         lastName,
         loginName,
@@ -90,8 +88,8 @@ router.put('/:id', (req, res) => {
     };
 
     User.findByIdAndUpdate(_id, newUser)
-        .then(res.json({ newUser, success: true, msg: 'User Updated' }))
-        .catch(res.json({ newUser, success: false, msg: 'Failed to update user' }));
+        .then((user) => res.json({ user, success: true, msg: 'User Updated' }))
+        .catch((err) => res.status(404).json({ err, success: false, msg: 'Failed to update user' }));
 })
 
 module.exports = router;

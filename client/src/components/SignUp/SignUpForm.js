@@ -66,14 +66,13 @@ const SignUpForm = ({ userToEdit }) => {
     }
 
     const submitForm = (data) => {
-        if (!userToEdit) {
-            data.img === '' && data.gender === 'Male' ?
+        if (!userToEdit) {            data.img === '' && data.gender === 'Male' ?
                 data.img = './img/male-avatar.jpg' :
                 data.img = './img/female-avatar.jpg'
             dispatch(addUser(data));
             navigate(PATHS.RECIPE_COLLECTION);
         } else {
-            dispatch(updateUser(userToEdit._id))
+            dispatch(updateUser(userToEdit._id, data))
             navigate(PATHS.RECIPE_COLLECTION);
         }
     };

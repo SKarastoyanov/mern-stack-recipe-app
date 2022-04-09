@@ -9,7 +9,7 @@ const Header = ({ loggedUser, setMessages }) => {
     const dispatch = useDispatch();
 
     const setUserToView = () => {
-        dispatch(getUserById(loggedUser._id));
+        // dispatch(getUserById(loggedUser._id));
     }
 
     const handleLogout = () => {

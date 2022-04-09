@@ -10,8 +10,11 @@ const UsersCollections = () => {
     const { users: usersList, loading } = useSelector((state) => state.users);
 
     useEffect(() => {
+        console.log("dispatch")
         dispatch(getUsers());
     }, [])
+
+    debugger
 
     if (!usersList || loading) {
         return null
@@ -21,9 +24,11 @@ const UsersCollections = () => {
         <div className='users-view-container col-10'>
             <div className='list-group' id='myList' role='tablist'>
                 {
+                    usersList.length > 0 ? (
                     usersList.map(user => (
                         <UserItem key={user._id} user={user} />
-                    ))
+                    ))) :
+                    <p>no users yet</p>
                 }
             </div>
             <Outlet />

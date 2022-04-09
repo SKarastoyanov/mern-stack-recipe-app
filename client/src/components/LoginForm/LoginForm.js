@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form'
-import './style.css'
+import axios from 'axios';
 
-const LoginForm = ({ onSubmitLogin }) => {
+import './style.css'
+import { API_BASE_URL } from '../../Constants';
+
+const LoginForm = ({ }) => {
     const { register, handleSubmit, formState: { errors, isDirty } } = useForm({
         defaultValues: {
             loginName: '',
@@ -10,8 +13,10 @@ const LoginForm = ({ onSubmitLogin }) => {
     })
 
     const submitLoginForm = (data) => {
-        // console.log(data)
-        onSubmitLogin(data);
+        console.log(data)
+        axios.post(`${API_BASE_URL}/api/login`, data)
+        .then(result => console.log("result", result))
+        .catch(error => console.log(error.error))      
     }
 
     return (
