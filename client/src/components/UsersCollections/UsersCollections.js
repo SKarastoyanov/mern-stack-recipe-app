@@ -14,8 +14,6 @@ const UsersCollections = () => {
         dispatch(getUsers());
     }, [])
 
-    debugger
-
     if (!usersList || loading) {
         return null
     }

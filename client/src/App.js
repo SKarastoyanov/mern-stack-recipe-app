@@ -30,40 +30,6 @@ export default function App() {
     setErrors(undefined);
   }
 
-
-  const handleLogin = (loginData) => {
-    // axios.get(`${API_BASE_URL}/api/users`)
-    //     .
-
-    //   .then(res => res.forEach(element => {
-    //     if (element.loginName === loginData.loginName && element.password === loginData.password) {
-    //       let user = {
-    //         id: element.id,
-    //         firstName: element.firstName,
-    //         lastName: element.lastName,
-    //         loginName: element.loginName,
-    //         img: element.img,
-    //         gender: element.gender,
-    //         role: element.role,
-    //         status: element.status,
-    //         introduction: element.introduction,
-    //         ownRecipes: element.ownRecipes,
-    //         favourites: element.favourites,
-    //         registrationDate: element.registrationDate,
-    //         modified: element.modified
-    //       }
-    //       window.localStorage.setItem('user', JSON.stringify(user));
-    //       const event = new Event('localStorageAuthEvent')
-    //       window.dispatchEvent(event);
-    //       setMessages(`${user.loginName} logged in successfully!`);
-    //       navigate(constants.HOME)
-    //     } else {
-    //       setErrors('INCORRECT LOGIN NAME OR PASSWORD!')
-    //     }
-    //   }))
-    //   .catch(err => console.log(err))
-  }
-
   const getItemsFromStorage = () => {
     const user = window.localStorage.getItem('user');
     if (user) {
@@ -87,9 +53,9 @@ export default function App() {
         <Routes>
           <Route path={PATHS.RECIPE_COLLECTION} element={<RecipesCollection />} />
           <Route path={`${PATHS.RECIPE_COLLECTION}/:recipeId`} element={<RecipeView setRecipeToEdit={setRecipeToEdit} />} />
-          <Route path={PATHS.ADD_RECIPE} element={<RecipeForm />} />
+          <Route path={PATHS.ADD_RECIPE} element={<RecipeForm setMessages={setMessages}/>} />
           <Route path={PATHS.EDIT_RECIPE} element={<RecipeForm recipeToEdit={recipeToEdit} />} />        
-          <Route path={PATHS.LOGIN_FORM} element={<LoginForm onSubmitLogin={handleLogin} />} />
+          <Route path={PATHS.LOGIN_FORM} element={<LoginForm />} />
           <Route path={PATHS.SIGN_UP_FORM} element={<SignUpForm />} />
           <Route path={PATHS.USERS} exact element={<UsersCollections />} />
           <Route path={`${PATHS.USERS}/:userId`} element={<ProfileView setUserToEdit={setUserToEdit}/>} />  

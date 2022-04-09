@@ -1,4 +1,5 @@
 .recipe-view-container {
+    position: relative;
     height: 82vh;
 }
 

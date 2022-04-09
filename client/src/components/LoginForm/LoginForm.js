@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import './style.css'
-import { API_BASE_URL } from '../../Constants';
+import { API_BASE_URL, PATHS } from '../../Constants';
 
-const LoginForm = ({ }) => {
+
+const LoginForm = ({ setMessages }) => {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors, isDirty } } = useForm({
         defaultValues: {
             loginName: '',
@@ -13,10 +16,31 @@ const LoginForm = ({ }) => {
     })
 
     const submitLoginForm = (data) => {
-        console.log(data)
-        axios.post(`${API_BASE_URL}/api/login`, data)
-        .then(result => console.log("result", result))
-        .catch(error => console.log(error.error))      
+         axios.post(`${API_BASE_URL}/api/login`, data)
+            .then(loggedUser => {
+                let user = {
+                    id: loggedUser.data.id,
+                    firstName: loggedUser.data.firstName,
+                    lastName: loggedUser.data.lastName,
+                    loginName: loggedUser.data.loginName,
+                    img: loggedUser.data.img,
+                    gender: loggedUser.data.gender,
+                    role: loggedUser.data.role,
+                    status: loggedUser.data.status,
+                    introduction: loggedUser.data.introduction,
+                    ownRecipes: loggedUser.data.ownRecipes,
+                    favourites: loggedUser.data.favourites,
+                    registrationDate: loggedUser.data.registrationDate,
+                    modified: loggedUser.data.modified
+                };
+
+                window.localStorage.setItem('user', JSON.stringify(user));
+                const event = new Event('localStorageAuthEvent')
+                window.dispatchEvent(event);
+                setMessages(`${user.loginName} logged in successfully!`);
+                navigate(PATHS.HOME);
+
+            }).catch(error => console.log(error.error))
     }
 
     return (
@@ -36,7 +60,7 @@ const LoginForm = ({ }) => {
                         className='form-control'
                         type='password'
                         placeholder='Password'
-                        {...register('password', { required: true })}/>
+                        {...register('password', { required: true })} />
                     <label id='passHelp' htmlFor='floatingInput'>Password</label>
                 </div>
                 <div className='Form-button-panel'>

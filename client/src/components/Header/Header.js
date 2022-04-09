@@ -9,12 +9,12 @@ const Header = ({ loggedUser, setMessages }) => {
     const dispatch = useDispatch();
 
     const setUserToView = () => {
-        // dispatch(getUserById(loggedUser._id));
+        dispatch(getUserById(loggedUser._id));
+        
     }
 
     const handleLogout = () => {
         setMessages(`Bon appetit ${loggedUser.loginName}!`);
-        console.log('handleLogout')
         window.localStorage.removeItem('user')
         const authEvent = new Event('localStorageAuthEvent')
         window.dispatchEvent(authEvent)

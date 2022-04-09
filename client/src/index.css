@@ -2,6 +2,8 @@ html, body, #root {
   position: relative;
   height: 100vh;
   margin: 0px;
+  padding: 0px;
+
 }
 
 body {

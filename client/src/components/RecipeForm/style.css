@@ -2,8 +2,8 @@
     padding: 10px;
     margin: 15px;
 }
-.recipe-form-container {
-    height: 85vh;
+#recipe-form-container {
+    height: 95vh;
 }
 
 #recipe-form-btn {

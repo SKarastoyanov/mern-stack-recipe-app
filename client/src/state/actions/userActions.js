@@ -4,7 +4,6 @@ import { GET_USERS, ADD_USER, DELETE_USER, USERS_LOADING, GET_USER_BY_ID, UPDATE
 import { API_BASE_URL } from '../../Constants';
 
 export const getUsers = () => dispatch => {
-    debugger
     dispatch(getUsersLoading());
     axios.get(`${API_BASE_URL}/api/users`)
         .then(res => {
@@ -49,6 +48,17 @@ export const deleteUser = id => dispatch => {
             })
         );
 };
+
+export const getUserById = id => dispatch => {
+    axios.get(`${API_BASE_URL}/api/users/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_USER_BY_ID,
+                payload: res.data.user
+            })
+        })
+        .catch(error => console.log('Fetching UsersById Error: ', error))
+}
 
 export const getUsersLoading = () => {
     return {

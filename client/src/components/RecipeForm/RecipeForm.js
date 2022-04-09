@@ -33,7 +33,7 @@ const newRecipe = {
     [recipeFields.modified]: new Date()
 }
 
-const RecipeForm = ({ recipeToEdit }) => {
+const RecipeForm = ({ recipeToEdit, setMessages }) => {
     const [recipeState, setRecipeState] = useState(recipeToEdit || newRecipe);
     const navigate = useNavigate();
 
@@ -43,11 +43,13 @@ const RecipeForm = ({ recipeToEdit }) => {
             axios
             .post(`${API_BASE_URL}/api/recipes`, recipeState)
             .then(navigate(PATHS.RECIPE_COLLECTION))
-            .catch(error => console.log('Recipe Creation Unsuccessful: ', error)
-        )} else {
+            .catch(error => console.log('Recipe Creation Unsuccessful: ', error))
+            setMessages(`Recipe ${recipeState.title} updated successfully!`)
+        } else {
             axios.put(`${API_BASE_URL}/api/recipes/${recipeState._id}`, recipeState)
             .then(navigate(PATHS.RECIPE_COLLECTION))
             .catch(error => console.log('Recipe Update Unsuccessful: ', error))
+            setMessages(`Recipe ${recipeState.title} added successfully!`)
         }
     }
 
@@ -66,7 +68,7 @@ const RecipeForm = ({ recipeToEdit }) => {
 
     return (
         <form onSubmit={handleSubmit} onReset={handleReset}>
-            <div className='d-flex flex-column recipe-form-container align-items-center recipe-form-container'>
+            <div id='recipe-form-container' className='d-flex flex-column recipe-form-container align-items-center'>
                 <div className='form-floating mb-3'>
                     <input
                         type='text'

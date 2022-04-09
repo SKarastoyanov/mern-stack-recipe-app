@@ -1,9 +1,9 @@
-import { ADD_USER, DELETE_USER, GET_USER_BY_ID, GET_USERS, USERS_LOADING, UPDATE_USER } from './types';
+import { ADD_USER, DELETE_USER, GET_USERS, USERS_LOADING, UPDATE_USER, GET_USER_BY_ID } from './types';
 
 const initialState = {
     users: [],
     loading: false,
-    userToView: null
+    userToView: null,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -34,6 +34,11 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: state.users.filter(user => user._id !== action.payload)
+            };
+        case GET_USER_BY_ID:
+            return {
+                ...state,
+                users: state.users.filter(user => user._id === action.payload._id),
             };
         case USERS_LOADING:
             return {

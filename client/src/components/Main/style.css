@@ -1,7 +1,7 @@
 .main-container {
     display: flex;
     justify-content: center;
-    padding-bottom: 3rem;
+    padding-bottom: 6vh;
     height: 82vh;
 }
 
