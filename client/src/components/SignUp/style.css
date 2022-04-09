@@ -1,0 +1,17 @@
+.sign-up-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 60px;
+}
+
+.form-floating {
+    width: 70%;
+}
+
+.sing-up-btn {
+    margin: 0px 100px;
+}

@@ -1,0 +1,31 @@
+.collection-item-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.recipe-container {
+    display: flex;
+    border: 2px solid rgb(201, 240, 178);
+    border-radius: 5px;
+    height:250px;
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+}
+
+.recipe-text-content {
+    width: 100%;
+}
+
+.recipe-img {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+p {
+    color: #198754;
+}

@@ -1,0 +1,26 @@
+#footer-container {
+    position: "fixed";
+    bottom: 0;
+    width: 100%;
+    height: 6vh;
+    background: linear-gradient(white, #65ec4a);
+}
+
+.logo-container {
+    height: 100px;
+}
+
+.footer-logo {
+    position: relative;
+    top: -39px;
+    height: 181%;
+    overflow: hidden;
+}
+
+.footer-info-item {
+    width: 40%;
+}
+
+.footer-links-item {
+    width: 40%;
+}

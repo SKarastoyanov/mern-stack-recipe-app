@@ -1,0 +1,13 @@
+.about-container {
+    display: flex;
+    justify-content: center;
+    height: 82vh;
+}
+
+.about-text {
+    width: 80%;
+    text-align: center;
+    padding-top: 150px;
+    font-family:cursive;
+    color: rgb(32, 148, 38);
+}

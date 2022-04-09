@@ -1,0 +1,39 @@
+.profile-view-container {
+    height: 82vh !important;
+}
+
+.profile-left-side {
+padding: 30px 20px;
+}
+
+.profile-right-side { 
+    height: 88%;
+    overflow: auto;
+}
+
+.Pane .horizontal .Pane1   {
+    justify-content: center;   
+}
+
+.fav-button {
+margin: 5px 20px;
+}
+
+.Pane .horizontal .Pane2   {
+    overflow: auto;
+}
+
+.profile-img-large {
+    align-self: center;
+    height: 100px;
+    margin: 0px 15px;
+}
+
+#recipes-container {
+    border-radius: 15px;
+    padding: 0PX;
+}
+
+#button-container > button{
+    margin: 5px;
+}

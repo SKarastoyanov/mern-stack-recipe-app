@@ -1,0 +1,24 @@
+.header-container {
+  height: 12vh;
+  background: linear-gradient(#65ec4a, white);
+}
+
+.logo {
+  align-self: flex-start;
+  height: 130%;
+}
+
+.profile-img {
+  height: 50px;
+  margin: 0px 15px;
+}
+
+.nav-link {
+  font-family: cursive;
+  font-size: 20px;
+}
+
+#header-button {
+  font-family: cursive;
+  font-size: 18px;
+}

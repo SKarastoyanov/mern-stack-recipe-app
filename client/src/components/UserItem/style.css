@@ -1,0 +1,15 @@
+#myList {
+    width: 90%;
+}
+
+.list-group-item {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    margin: 10px;
+    border-radius: 10px !important
+}
+
+#items {
+    padding: 0 20px;
+}

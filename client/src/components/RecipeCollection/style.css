@@ -1,0 +1,13 @@
+.RecipeCollection-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 100px;
+}
+
+#search-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+}

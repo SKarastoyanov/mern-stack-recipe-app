@@ -1,0 +1,11 @@
+.RecipeForm-button-panel{
+    padding: 10px;
+    margin: 15px;
+}
+.recipe-form-container {
+    height: 85vh;
+}
+
+#recipe-form-btn {
+    margin: 0px 100px;
+}

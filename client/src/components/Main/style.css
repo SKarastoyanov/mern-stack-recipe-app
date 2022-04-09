@@ -1,0 +1,24 @@
+.main-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 3rem;
+    height: 82vh;
+}
+
+.text-container {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 80%;
+    text-align: center;
+    font-family:cursive;
+    color: rgb(32, 148, 38);
+}
+
+h3::first-letter {
+    font-size: 130%;
+}
+
+a {
+    text-decoration: none;
+}
