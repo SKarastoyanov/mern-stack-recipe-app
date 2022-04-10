@@ -15,10 +15,10 @@ const UserItem = ({ user }) => {
             <div
                 className='list-group-item'
                 role='tab'>
-                <div id='items'><strong>Name: </strong>{user.firstName} {user.lastName}</div>
-                <div id='items'><strong>Login name: </strong>{user.loginName}</div>
-                <div id='items'><strong>Status: </strong>{user.userStatus}</div>
-                <div id='items'><strong>Own recipes: </strong>{user.ownRecipes?.length}</div>
+                <div id='items'><strong>Name:&nbsp;</strong>{user.firstName} {user.lastName}</div>
+                <div id='items'><strong>Login name:&nbsp;</strong>{user.loginName}</div>
+                <div id='items'><strong>Status:&nbsp;</strong>{user.userStatus}</div>
+                <div id='items'><strong>Own recipes:&nbsp;</strong>{user.ownRecipes?.length || '0'}</div>
             </div>
         </Link>
     )

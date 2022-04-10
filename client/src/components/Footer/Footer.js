@@ -11,7 +11,7 @@ const Footer = (props) => {
       <div className='text-muted border-top footer-info-item nav-link px-2'>&copy; 2021 Company, Inc</div>
       <div className='footer-logo-item'>
         <a href='/' className='logo-container'>
-          <img src='./img/footer-logo.png' className='footer-logo flex-shrink-0' alt='logo' />
+          <img src={require('../../assets/footer-logo.png')} className='footer-logo flex-shrink-0' alt='logo' />
         </a>
       </div>
       <div className='footer-links-item'>

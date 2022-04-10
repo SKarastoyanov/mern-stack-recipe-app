@@ -19,7 +19,7 @@ const UsersCollections = () => {
     }
 
     return (
-        <div className='users-view-container col-10'>
+        <div className='users-view-container'>
             <div className='list-group' id='myList' role='tablist'>
                 {
                     usersList.length > 0 ? (
