@@ -7,7 +7,6 @@ import { API_BASE_URL, PATHS } from '../../Constants'
 import './style.css'
 
 const RecipeView = ({ setRecipeToEdit }) => {
-    debugger
     const location = useLocation();
     const locationParts = location.pathname.split('/');
     const recipeId = locationParts[locationParts.length - 1]
@@ -19,7 +18,7 @@ const RecipeView = ({ setRecipeToEdit }) => {
     const onDeleteRecipe = (event) => {
         event.stopPropagation()
         axios.delete(`${API_BASE_URL}/api/recipes/${recipeId}`)
-            .then(navigate(PATHS.RECIPE_COLLECTION, {deleted: true})
+            .then(navigate(PATHS.RECIPE_COLLECTION, { deleted: true })
             )
             .catch(error => console.log('Recipe Delete not successful', error))
     }
@@ -53,16 +52,16 @@ const RecipeView = ({ setRecipeToEdit }) => {
 
 
 
-    const isAlreadiFavorite = () => {
-        if (Object.keys(userData).length > 0) {
-            const favRecipe = userData.favourites.find(element => element.id === recipe._id)
-            if (favRecipe !== undefined) {
-                document.getElementById('favourites').textContent = 'Remove from Favourites'
-            }
-        }
-    }
+    // const isAlreadiFavorite = () => {
+    //     if (Object.keys(userData).length > 0) {
+    //         const favRecipe = userData.favourites.find(element => element.id === recipe._id)
+    //         if (favRecipe !== undefined) {
+    //             document.getElementById('favourites').textContent = 'Remove from Favourites'
+    //         }
+    //     }
+    // }
 
-    isAlreadiFavorite();
+    // isAlreadiFavorite();
 
     const addComment = () => {
         const child =
@@ -88,13 +87,15 @@ const RecipeView = ({ setRecipeToEdit }) => {
 
     useEffect(() => {
         axios.get(`${API_BASE_URL}/api/recipes/${recipeId}`)
-            .then((res) => {
+            .then(res => {
                 const recipeData = res.data;
                 setRecipe(recipeData)
                 setUserData(JSON.parse(localStorage.getItem('user'))); //get user from local storage
             })
             .catch(error => console.log('Fetching recipe by id: ', error))
     }, [])
+
+    console.log(userData)
 
     if (!recipe) {
         return null

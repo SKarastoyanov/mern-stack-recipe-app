@@ -4,10 +4,13 @@ import axios from 'axios';
 
 import './style.css'
 import { API_BASE_URL, PATHS } from '../../Constants';
+import { useDispatch } from 'react-redux';
+import { logUser } from '../../state/actions/userActions';
 
 
 const LoginForm = ({ setMessages }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors, isDirty } } = useForm({
         defaultValues: {
             loginName: '',
@@ -17,27 +20,28 @@ const LoginForm = ({ setMessages }) => {
 
     const submitLoginForm = (data) => {
          axios.post(`${API_BASE_URL}/api/login`, data)
-            .then(loggedUser => {
-                let user = {
-                    id: loggedUser.data.id,
-                    firstName: loggedUser.data.firstName,
-                    lastName: loggedUser.data.lastName,
-                    loginName: loggedUser.data.loginName,
-                    img: loggedUser.data.img,
-                    gender: loggedUser.data.gender,
-                    role: loggedUser.data.role,
-                    status: loggedUser.data.status,
-                    introduction: loggedUser.data.introduction,
-                    ownRecipes: loggedUser.data.ownRecipes,
-                    favourites: loggedUser.data.favourites,
-                    registrationDate: loggedUser.data.registrationDate,
-                    modified: loggedUser.data.modified
+            .then(res => {
+                console.log(res)
+                const user = {
+                    _id: res.data._id,
+                    firstName: res.data.firstName,
+                    lastName: res.data.lastName,
+                    loginName: res.data.loginName,
+                    img: res.data.img,
+                    gender: res.data.gender,
+                    role: res.data.role,
+                    status: res.data.status,
+                    introduction: res.data.introduction,
+                    ownRecipes: res.data.ownRecipes,
+                    favourites: res.data.favourites,
+                    registrationDate: res.data.registrationDate,
+                    modified: res.data.modified
                 };
 
+                dispatch(logUser(user));
                 window.localStorage.setItem('user', JSON.stringify(user));
                 const event = new Event('localStorageAuthEvent')
                 window.dispatchEvent(event);
-                setMessages(`${user.loginName} logged in successfully!`);
                 navigate(PATHS.HOME);
 
             }).catch(error => console.log(error.error))

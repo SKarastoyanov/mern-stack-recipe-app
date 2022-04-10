@@ -1,9 +1,9 @@
-import { ADD_USER, DELETE_USER, GET_USERS, USERS_LOADING, UPDATE_USER, GET_USER_BY_ID } from './types';
+import { ADD_USER, DELETE_USER, GET_USERS, USERS_LOADING, UPDATE_USER, GET_USER_BY_ID, LOGIN, LOGOUT, } from './types';
 
 const initialState = {
     users: [],
     loading: false,
-    userToView: null,
+    loggedUser: null,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -40,11 +40,22 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.filter(user => user._id === action.payload._id),
             };
+        case LOGIN:
+            debugger
+            return {
+                ...state,
+                loggedUser: action.payload
+            };
         case USERS_LOADING:
             return {
                 ...state,
                 loading: true
             };
+        case LOGOUT:
+            return {
+                ...state,
+                loggedUser: null
+            }
         default:
             return state;
     }

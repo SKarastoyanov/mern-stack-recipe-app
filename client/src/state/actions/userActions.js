@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_USERS, ADD_USER, DELETE_USER, USERS_LOADING, GET_USER_BY_ID, UPDATE_USER } from '../reducers/types';
+import { GET_USERS, ADD_USER, DELETE_USER, USERS_LOADING, GET_USER_BY_ID, UPDATE_USER, LOGIN, LOGOUT } from '../reducers/types';
 import { API_BASE_URL } from '../../Constants';
 
 export const getUsers = () => dispatch => {
@@ -58,6 +58,19 @@ export const getUserById = id => dispatch => {
             })
         })
         .catch(error => console.log('Fetching UsersById Error: ', error))
+}
+
+export const logUser = user => dispatch => {
+    dispatch({
+        type: LOGIN,
+        payload: user
+    })
+}
+
+export const logout = () => {
+    return {
+        type: LOGOUT
+    }
 }
 
 export const getUsersLoading = () => {
