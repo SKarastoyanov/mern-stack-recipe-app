@@ -61,12 +61,14 @@ const SignUpForm = ({ userToEdit }) => {
         setValue('loginName', userToEdit.loginName, { shouldDirty: true, shouldValidate: true });
         setValue('password', userToEdit.password, { shouldDirty: true, shouldValidate: true });
         setValue('gender', userToEdit.gender, { shouldDirty: true, shouldValidate: true });
+        setValue('role', userToEdit.role, { shouldDirty: true, shouldValidate: true });
         setValue('img', userToEdit.img, { shouldDirty: true, shouldValidate: true });
         setValue('introduction', userToEdit.introduction, { shouldDirty: true, shouldValidate: true });
     }
 
     const submitForm = (data) => {
-        if (!userToEdit) {            data.img === '' && data.gender === 'Male' ?
+        if (!userToEdit) {
+            data.img === '' && data.gender === 'Male' ?
                 data.img = './img/male-avatar.jpg' :
                 data.img = './img/female-avatar.jpg'
             dispatch(addUser(data));
@@ -198,6 +200,18 @@ const SignUpForm = ({ userToEdit }) => {
                         <option value='Female'>Female</option>
                     </select>
                     <label htmlFor='floatingInput'>Gender</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <select
+                        id='role'
+                        className='form-control'
+                        {...register('role',
+                            { required: true })}>
+                        <option value='Select'>Select</option>
+                        <option value='Chef'>Chef</option>
+                        <option value='Sous Chef'>Sous Chef</option>
+                    </select>
+                    <label htmlFor='floatingInput'>Role</label>
                 </div>
                 <div className='form-floating mb-3'>
                     <input

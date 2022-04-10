@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { PATHS } from '../../Constants';
+import { PATHS, ROLES } from '../../Constants';
 import { logout } from '../../state/actions/userActions';
 import './style.css';
 
@@ -36,7 +36,9 @@ const Header = ({ setMessages }) => {
                         </Link>
                     </li>
                     <li><Link className='nav-link px-2 link-success' to={PATHS.ADD_RECIPE}>Add Recipe</Link></li>
-                    <li><Link className='nav-link px-2 link-success' to={PATHS.USERS}>All Users</Link></li>
+                    {loggedUser?.role === ROLES.CHEF
+                        ? <li><Link className='nav-link px-2 link-success' to={PATHS.USERS}>All Users</Link></li>
+                        : null}
                     <li><Link className='nav-link px-2 link-success' to={PATHS.ABOUT}>About</Link></li>
                 </ul>
                 <div className='login-button-container text-end'>
@@ -53,7 +55,7 @@ const Header = ({ setMessages }) => {
                     {loggedUser ?
                         <Link
                             to={`${PATHS.USERS}/${loggedUser._id}`}
-                            >
+                        >
                             <img
                                 src={loggedUser.img}
                                 className='profile-img rounded-circle'
