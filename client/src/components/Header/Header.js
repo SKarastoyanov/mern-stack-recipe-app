@@ -21,7 +21,7 @@ const Header = ({ setMessages }) => {
         <div className='header-container'>
             <div className='d-flex flex-wrap align-items-center justify-content-center justify-content-sm-start'>
                 <a href='/' className='logo-container'>
-                    <img src='./img/app-logo-removebg-preview.png'
+                    <img src={require('../../assets/app-logo-removebg-preview.png')}
                         className='logo flex-shrink-0' alt='logo'
                     />
                 </a>

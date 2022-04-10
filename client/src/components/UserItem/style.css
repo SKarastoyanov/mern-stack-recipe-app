@@ -6,10 +6,17 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+    width: 100%;
     margin: 10px;
     border-radius: 10px !important
 }
 
 #items {
-    padding: 0 20px;
+    display: flex;
+    align-items: flex-start;
+    width: 20%;
+}
+
+#user-item-link {
+    width: 100%;
 }

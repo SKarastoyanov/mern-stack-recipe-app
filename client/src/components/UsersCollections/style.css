@@ -1,7 +1,12 @@
 .users-view-container {
     display: flex;
     justify-content: center;
+
     width: 100%;
     height: 82vh;;
     padding-top: 50px;
+}
+
+.list-group {
+    align-items: center;
 }
