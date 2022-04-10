@@ -1,7 +1,16 @@
 import { useForm } from 'react-hook-form'
-import './style.css'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const LoginForm = ({ onSubmitLogin }) => {
+import './style.css'
+import { API_BASE_URL, PATHS } from '../../Constants';
+import { useDispatch } from 'react-redux';
+import { logUser } from '../../state/actions/userActions';
+
+
+const LoginForm = ({ setMessages }) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors, isDirty } } = useForm({
         defaultValues: {
             loginName: '',
@@ -10,8 +19,32 @@ const LoginForm = ({ onSubmitLogin }) => {
     })
 
     const submitLoginForm = (data) => {
-        // console.log(data)
-        onSubmitLogin(data);
+         axios.post(`${API_BASE_URL}/api/login`, data)
+            .then(res => {
+                console.log(res)
+                const user = {
+                    _id: res.data._id,
+                    firstName: res.data.firstName,
+                    lastName: res.data.lastName,
+                    loginName: res.data.loginName,
+                    img: res.data.img,
+                    gender: res.data.gender,
+                    role: res.data.role,
+                    status: res.data.status,
+                    introduction: res.data.introduction,
+                    ownRecipes: res.data.ownRecipes,
+                    favourites: res.data.favourites,
+                    registrationDate: res.data.registrationDate,
+                    modified: res.data.modified
+                };
+
+                dispatch(logUser(user));
+                window.localStorage.setItem('user', JSON.stringify(user));
+                const event = new Event('localStorageAuthEvent')
+                window.dispatchEvent(event);
+                navigate(PATHS.HOME);
+
+            }).catch(error => console.log(error.error))
     }
 
     return (
@@ -31,7 +64,7 @@ const LoginForm = ({ onSubmitLogin }) => {
                         className='form-control'
                         type='password'
                         placeholder='Password'
-                        {...register('password', { required: true })}/>
+                        {...register('password', { required: true })} />
                     <label id='passHelp' htmlFor='floatingInput'>Password</label>
                 </div>
                 <div className='Form-button-panel'>

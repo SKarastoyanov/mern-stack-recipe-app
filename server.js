@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-
+const api = require('./routes/api/api');
 const users = require('./routes/api/users');
 const recipes = require('./routes/api/recipes');
 
@@ -23,6 +23,7 @@ mongoose
     .catch(error => console.log(error));
 
 //Use Routes
+app.use('/api', api);
 app.use('/api/users', users);
 app.use('/api/recipes', recipes);
 

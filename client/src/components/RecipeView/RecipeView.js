@@ -18,7 +18,7 @@ const RecipeView = ({ setRecipeToEdit }) => {
     const onDeleteRecipe = (event) => {
         event.stopPropagation()
         axios.delete(`${API_BASE_URL}/api/recipes/${recipeId}`)
-            .then(navigate(PATHS.RECIPE_COLLECTION, {deleted: true})
+            .then(navigate(PATHS.RECIPE_COLLECTION, { deleted: true })
             )
             .catch(error => console.log('Recipe Delete not successful', error))
     }
@@ -30,37 +30,38 @@ const RecipeView = ({ setRecipeToEdit }) => {
     }
 
     const addToFavourites = (event) => {
-        // event.preventDefault();
-        // let favButtonText = document.getElementById('favourites');
-        // if (favButtonText.textContent === 'Add to Favourites') {
-        //     userData.favourites.push(recipe);
-        //     favButtonText.textContent = 'Remove from Favourites';
-        // } else {
-        //     for (var i = 0; i < userData.favourites.length; i++) {
-        //         if (userData.favourites[i]._id === recipe._id) {
-        //             userData.favourites.splice(i, 1);
-        //         }
-        //     }
+        event.preventDefault();
 
-        //     favButtonText.textContent = 'Add to Favourites';
-        // }
+        let favButtonText = document.getElementById('favourites');
+        if (favButtonText.textContent === 'Add to Favourites') {
+            userData.favourites.push(recipe);
+            favButtonText.textContent = 'Remove from Favourites';
+        } else {
+            for (var i = 0; i < userData.favourites.length; i++) {
+                if (userData.favourites[i]._id === recipe._id) {
+                    userData.favourites.splice(i, 1);
+                }
+            }
 
-        // localStorage.removeItem('user');
-        // localStorage.setItem('user', JSON.stringify(userData));
+            favButtonText.textContent = 'Add to Favourites';
+        }
+
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(userData));
     }
 
 
 
-    const isAlreadiFavorite = () => {
-        // if (Object.keys(userData).length > 0) {
-        //     const favRecipe = userData.favourites.find(element => element.id === recipe._id)
-        //     if (favRecipe !== undefined) {
-        //         document.getElementById('favourites').textContent = 'Remove from Favourites'
-        //     }
-        // }
-    }
+    // const isAlreadiFavorite = () => {
+    //     if (Object.keys(userData).length > 0) {
+    //         const favRecipe = userData.favourites.find(element => element.id === recipe._id)
+    //         if (favRecipe !== undefined) {
+    //             document.getElementById('favourites').textContent = 'Remove from Favourites'
+    //         }
+    //     }
+    // }
 
-    isAlreadiFavorite();
+    // isAlreadiFavorite();
 
     const addComment = () => {
         const child =
@@ -86,20 +87,22 @@ const RecipeView = ({ setRecipeToEdit }) => {
 
     useEffect(() => {
         axios.get(`${API_BASE_URL}/api/recipes/${recipeId}`)
-            .then((res) => {
+            .then(res => {
                 const recipeData = res.data;
                 setRecipe(recipeData)
-                //setUserData(JSON.parse(localStorage.getItem('user'))); //get user from local storage
+                setUserData(JSON.parse(localStorage.getItem('user'))); //get user from local storage
             })
             .catch(error => console.log('Fetching recipe by id: ', error))
     }, [])
+
+    console.log(userData)
 
     if (!recipe) {
         return null
     }
 
     return (
-        <div className='profile-view-container'>
+        <div className='recipe-view-container'>
             <SplitPane split='vertical' minSize={200} defaultSize={370} maxSize={800}>
                 <div className='profile-view-left'>
                     <img id='recipe-img' className='rounded' src={recipe.imageUrl} alt='dish' />

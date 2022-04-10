@@ -1,20 +1,17 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { PATHS } from '../../Constants';
-import { getUserById } from '../../state/actions/userActions';
+import { logout } from '../../state/actions/userActions';
 import './style.css';
 
-const Header = ({ loggedUser, setMessages }) => {
+const Header = ({ setMessages }) => {
     const dispatch = useDispatch();
-
-    const setUserToView = () => {
-        dispatch(getUserById(loggedUser._id));
-    }
+    const loggedUser = useSelector(state => state.users.loggedUser);
 
     const handleLogout = () => {
         setMessages(`Bon appetit ${loggedUser.loginName}!`);
-        console.log('handleLogout')
+        dispatch(logout());
         window.localStorage.removeItem('user')
         const authEvent = new Event('localStorageAuthEvent')
         window.dispatchEvent(authEvent)
@@ -24,7 +21,9 @@ const Header = ({ loggedUser, setMessages }) => {
         <div className='header-container'>
             <div className='d-flex flex-wrap align-items-center justify-content-center justify-content-sm-start'>
                 <a href='/' className='logo-container'>
-                    <img src='./img/app-logo-removebg-preview.png' className='logo flex-shrink-0' alt='logo' />
+                    <img src='./img/app-logo-removebg-preview.png'
+                        className='logo flex-shrink-0' alt='logo'
+                    />
                 </a>
 
                 <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
@@ -53,8 +52,8 @@ const Header = ({ loggedUser, setMessages }) => {
                     </Link>
                     {loggedUser ?
                         <Link
-                            to={PATHS.PROFILE_VIEW}
-                            onClick={setUserToView}>
+                            to={`${PATHS.USERS}/${loggedUser._id}`}
+                            >
                             <img
                                 src={loggedUser.img}
                                 className='profile-img rounded-circle'

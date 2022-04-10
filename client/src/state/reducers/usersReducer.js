@@ -1,8 +1,9 @@
-import { ADD_USER, DELETE_USER, GET_USER_BY_ID, GET_USERS, USERS_LOADING, UPDATE_USER } from './types';
+import { ADD_USER, DELETE_USER, GET_USERS, USERS_LOADING, UPDATE_USER, GET_USER_BY_ID, LOGIN, LOGOUT, } from './types';
 
 const initialState = {
     users: [],
-    loading: false
+    loading: false,
+    loggedUser: null,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -22,23 +23,39 @@ const usersReducer = (state = initialState, action) => {
         case UPDATE_USER:
             return {
                 ...state,
-                users: [action.payload, ...state.users]
+                users: state.users.reduce((acc, cur) => {
+                    if (cur._id === action.payload._id) {
+                        return acc.push(action.payload)
+                    }
+                    return acc.push(cur);
+                }, [])
             }
         case DELETE_USER:
             return {
                 ...state,
-                users: state.users.filter(user => user._id !== action.payload) //in mongo id => _id
+                users: state.users.filter(user => user._id !== action.payload)
             };
         case GET_USER_BY_ID:
             return {
                 ...state,
-                users: state.users.filter(user => user._id === action.payload)
+                users: state.users.filter(user => user._id === action.payload._id),
+            };
+        case LOGIN:
+            debugger
+            return {
+                ...state,
+                loggedUser: action.payload
             };
         case USERS_LOADING:
             return {
                 ...state,
                 loading: true
             };
+        case LOGOUT:
+            return {
+                ...state,
+                loggedUser: null
+            }
         default:
             return state;
     }
