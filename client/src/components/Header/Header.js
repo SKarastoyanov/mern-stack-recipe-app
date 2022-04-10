@@ -35,7 +35,9 @@ const Header = ({ setMessages }) => {
                             Recipes Collection
                         </Link>
                     </li>
-                    <li><Link className='nav-link px-2 link-success' to={PATHS.ADD_RECIPE}>Add Recipe</Link></li>
+                    {loggedUser?.role === ROLES.CHEF
+                      ? <li><Link className='nav-link px-2 link-success' to={PATHS.ADD_RECIPE}>Add Recipe</Link></li>
+                    : null}
                     {loggedUser?.role === ROLES.CHEF
                         ? <li><Link className='nav-link px-2 link-success' to={PATHS.USERS}>All Users</Link></li>
                         : null}

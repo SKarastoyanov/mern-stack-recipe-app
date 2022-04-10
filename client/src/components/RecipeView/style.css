@@ -1,11 +1,9 @@
 .recipe-view-container {
-height: 90vh;
-
+height: 100vh;
 }
 
 .profile-view-left {
     padding: 40px 10px;
-    overflow: auto;
 }
 
 .profile-view-right {
