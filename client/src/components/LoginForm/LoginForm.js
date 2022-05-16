@@ -21,7 +21,6 @@ const LoginForm = ({ setMessages }) => {
     const submitLoginForm = (data) => {
          axios.post(`${API_BASE_URL}/api/login`, data)
             .then(res => {
-                console.log(res)
                 const user = {
                     _id: res.data._id,
                     firstName: res.data.firstName,

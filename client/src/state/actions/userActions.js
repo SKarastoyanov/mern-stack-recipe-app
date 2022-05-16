@@ -7,7 +7,6 @@ export const getUsers = () => dispatch => {
     dispatch(getUsersLoading());
     axios.get(`${API_BASE_URL}/api/users`)
         .then(res => {
-            console.log("get user")
             dispatch({
                 type: GET_USERS,
                 payload: res.data
@@ -28,6 +27,7 @@ export const addUser = user => dispatch => {
 }
 
 export const updateUser = (id, userData) => dispatch => {
+    debugger
     axios
         .put(`${API_BASE_URL}/api/users/${id}`, userData)
         .then(res =>
@@ -37,6 +37,7 @@ export const updateUser = (id, userData) => dispatch => {
             }))
         .catch(error => console.log(`User Not Updated Successfully`, error))
 }
+
 
 export const deleteUser = id => dispatch => {
     axios

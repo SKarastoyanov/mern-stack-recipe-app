@@ -1,4 +1,4 @@
-import { ADD_RECIPE, DELETE_RECIPE, GET_RECIPES, GET_RECIPES_BY_ID, RECIPES_LOADING } from './types';
+import { ADD_RECIPE, DELETE_RECIPE, GET_RECIPES, GET_RECIPES_BY_ID, RECIPES_LOADING, GET_OWN_RECIPES } from './types';
 
 const initialState = {
     recipes: [],

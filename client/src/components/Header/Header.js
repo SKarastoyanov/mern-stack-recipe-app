@@ -56,7 +56,7 @@ const Header = ({ setMessages }) => {
                     </Link>
                     {loggedUser ?
                         <Link
-                            to={`${PATHS.USERS}/${loggedUser._id}`}
+                            to={`${PATHS.USERS}/${loggedUser._id}`}                      
                         >
                             <img
                                 src={loggedUser.img}

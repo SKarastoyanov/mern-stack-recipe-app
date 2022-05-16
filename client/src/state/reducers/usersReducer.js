@@ -1,4 +1,4 @@
-import { ADD_USER, DELETE_USER, GET_USERS, USERS_LOADING, UPDATE_USER, GET_USER_BY_ID, LOGIN, LOGOUT, } from './types';
+import { ADD_USER, DELETE_USER, GET_USERS, USERS_LOADING, UPDATE_USER, GET_USER_BY_ID, LOGIN, LOGOUT, UPDATE_PROP, } from './types';
 
 const initialState = {
     users: [],
@@ -24,6 +24,7 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: state.users.reduce((acc, cur) => {
+                    debugger
                     if (cur._id === action.payload._id) {
                         return acc.push(action.payload)
                     }
@@ -41,7 +42,6 @@ const usersReducer = (state = initialState, action) => {
                 users: state.users.filter(user => user._id === action.payload._id),
             };
         case LOGIN:
-            debugger
             return {
                 ...state,
                 loggedUser: action.payload

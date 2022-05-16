@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import SplitPane from 'react-split-pane';
 import axios from 'axios';
 
@@ -11,21 +12,21 @@ const ProfileView = ({ setUserToEdit }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const locationParts = location.pathname.split('/');
-  const userId = locationParts[locationParts.length - 1]
+  const userId = locationParts[locationParts.length - 1];
   const [selectedUser, setSelectedUser] = useState(null);
-  const [collectionToView, setCollectionToView] = useState([])
+  const [collectionToView, setCollectionToView] = useState(null);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/api/users/${userId}`)
       .then((res) => {
         const user = res.data;
         setSelectedUser(user)
-        setCollectionToView(user.ownRecipes)
+        setCollectionToView(user.favourites)
       })
       .catch(error => console.log('Fetching UsersById Error: ', error))
-  }, [])
+  }, [userId])
 
-  if (!selectedUser) {
+  if (!selectedUser || !collectionToView) {
     return null
   }
 
@@ -39,6 +40,7 @@ const ProfileView = ({ setUserToEdit }) => {
 
   const showOwnCollection = (event) => {
     event.preventDefault();
+    console.log("selectedUser own collection", selectedUser.ownRecipes)
     setCollectionToView(selectedUser.ownRecipes)
     recipeItem.forEach(element => element.style.background = '#d9fad2');
   }

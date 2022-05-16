@@ -38,7 +38,7 @@ const RecipesCollection = () => {
             <SearchBar setSearchResults={setSearchResults}/>
             <div className='d-flex flex-column align-items-center RecipeCollection-container' >
                 {
-                    recipes.map(recipe => (
+                    recipes.sort((a, b) => (a.created < b.created ? 1 : -1)).map(recipe => (
                         <Recipe key={recipe._id} recipe={recipe} />))
                 }
             </div>
