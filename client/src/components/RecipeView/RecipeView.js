@@ -60,10 +60,12 @@ const RecipeView = ({ setRecipeToEdit }) => {
     }
 
     const isAlreadiFavorite = () => {
-        if (Object.keys(userData).length > 0) {
-            const favRecipe = userData.favourites.find(element => element._id === recipe._id)
-            if (favRecipe !== undefined) {
-                document.getElementById('favourites').textContent = 'Remove from Favourites'
+        if (userData) {
+            if (Object.keys(userData).length > 0) {
+                const favRecipe = userData.favourites.find(element => element._id === recipe._id)
+                if (favRecipe !== undefined) {
+                    document.getElementById('favourites').textContent = 'Remove from Favourites'
+                }
             }
         }
     }

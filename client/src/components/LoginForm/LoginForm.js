@@ -54,6 +54,7 @@ const LoginForm = ({ setMessages }) => {
                         type='text'
                         className='form-control'
                         placeholder='Login name'
+                        autoComplete='loginName'
                         {...register('loginName', { required: true, maxLength: 15 })} />
                     <label htmlFor='floatingInput'>Login name</label>
                     <p>{errors.loginName?.message}</p>
@@ -63,6 +64,7 @@ const LoginForm = ({ setMessages }) => {
                         className='form-control'
                         type='password'
                         placeholder='Password'
+                        autoComplete='password'
                         {...register('password', { required: true })} />
                     <label id='passHelp' htmlFor='floatingInput'>Password</label>
                 </div>

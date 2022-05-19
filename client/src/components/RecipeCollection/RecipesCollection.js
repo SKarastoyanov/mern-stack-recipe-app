@@ -1,33 +1,49 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { API_BASE_URL } from '../../Constants';
 import Recipe from '../Recipe/Recipe';
-import SearchBar from './SearchBar';
 import './style.css'
 
 const RecipesCollection = () => {
     const [recipes, setRecipes] = useState(null);
-    const [searchResults, setSearchResults] = useState(null);
-    const params = useParams();
+
+    //prevent page reloading at pressing Enter button
+    document.getElementById('searchForm')?.addEventListener('submit', (e) => { e.preventDefault() }, false);
 
     const getRecipes = () => {
-        if (searchResults) {
-            console.log(searchResults)
-            setRecipes(searchResults)
-        } else {
-            axios.get(`${API_BASE_URL}/api/recipes`)
+        axios.get(`${API_BASE_URL}/api/recipes`)
             .then(res => {
                 setRecipes(res.data)
             })
             .catch(error => console.log('Fetching Recipes Error: ', error))
-        }
     }
+
+    const handleTextCange = (event) => {
+        const searchTerm = event.target.value.toLowerCase().trim();
+        axios.get(`${API_BASE_URL}/api/recipes`)
+            .then((res) => {
+                if (res.data && searchTerm.length > 2) {
+                    const searchResults = res.data.filter(recipe => recipe.title.toLowerCase().includes(searchTerm))
+                    if (searchResults.length > 0) {
+                        document.getElementById('results').textContent = `${searchResults.length} recipes meet your search criteria.`;
+                        setRecipes(searchResults)
+                    } else {
+                        document.getElementById('results').textContent = 'No recipe found. Change your search criteria.';
+                    }
+                } else {
+                    setRecipes(res.data);
+                    document.getElementById('results').textContent = '';
+                }
+            })
+            .catch(error => console.log('Fetching Recipes Error: ', error))
+    }
+
 
     useEffect(() => {
         getRecipes();
-    }, [searchResults])
+    }, [])
 
     if (!recipes) {
         return null
@@ -35,7 +51,24 @@ const RecipesCollection = () => {
 
     return (
         <div id='recipe-collection-container'>
-            <SearchBar setSearchResults={setSearchResults}/>
+            <div id='search-field'>
+                <div>What do you want to cook?</div>
+                <form id='searchForm' action='/recipes' method='GET' className='form-inline'>
+                    <div id='search' className='form-group d-flex flex-column align-items-center'>
+                        <input
+                            id='userInput'
+                            type='text'
+                            name='search'
+                            placeholder={`search in ${recipes.length} recipes`}
+                            className='form-control'
+                            onChange={handleTextCange}
+                        />
+
+                        {/* <input type='submit' value='search' className='btn btn-outline-success my-2 my-sm-0' onClick={submitSearch} /> */}
+                    </div>
+                </form>
+            </div>
+            <div id='results' className='d-flex flex-column align-items-center'></div>
             <div className='d-flex flex-column align-items-center RecipeCollection-container' >
                 {
                     recipes.sort((a, b) => (a.created < b.created ? 1 : -1)).map(recipe => (

@@ -69,8 +69,8 @@ const SignUpForm = ({ userToEdit }) => {
     const submitForm = (data) => {
         if (!userToEdit) {
             data.img === '' && data.gender === 'Male' ?
-                data.img = './img/male-avatar.jpg' :
-                data.img = './img/female-avatar.jpg'
+                data.img = '../../assets/male-avatar.jpg' :
+                data.img = '../../assets/female-avatar.jpg'
             dispatch(addUser(data));
             navigate(PATHS.RECIPE_COLLECTION);
         } else {
@@ -145,10 +145,6 @@ const SignUpForm = ({ userToEdit }) => {
             setFormValues(userToEdit)
         }
     }, [])
-
-    console.log('isDirty', isDirty)
-    console.log('isValid', isValid)
-    console.log('isPassCorrect', isPassCorrect)
 
     return (
         <form onSubmit={handleSubmit(submitForm)} onReset={handleReset}>
