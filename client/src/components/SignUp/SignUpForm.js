@@ -69,10 +69,10 @@ const SignUpForm = ({ userToEdit }) => {
     const submitForm = (data) => {
         if (!userToEdit) {
             data.img === '' && data.gender === 'Male' ?
-                data.img = '../../assets/male-avatar.jpg' :
-                data.img = '../../assets/female-avatar.jpg'
+                data.img = require('../../assets/male-avatar.jpg') :
+                data.img = require('../../assets/female-avatar.jpg')
             dispatch(addUser(data));
-            navigate(PATHS.RECIPE_COLLECTION);
+            navigate(PATHS.LOGIN_FORM);
         } else {
             dispatch(updateUser(userToEdit._id, data))
             navigate(PATHS.RECIPE_COLLECTION);

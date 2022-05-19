@@ -12,7 +12,7 @@
     flex-flow: column wrap;
 }
 
-input {
+#userInput {
     text-align: center;
     margin: 10px;
 }

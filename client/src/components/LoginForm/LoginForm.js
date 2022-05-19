@@ -44,6 +44,8 @@ const LoginForm = ({ setMessages }) => {
                 navigate(PATHS.HOME);
 
             }).catch(error => console.log(error.error))
+
+            
     }
 
     return (

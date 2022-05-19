@@ -40,7 +40,6 @@ const RecipesCollection = () => {
             .catch(error => console.log('Fetching Recipes Error: ', error))
     }
 
-
     useEffect(() => {
         getRecipes();
     }, [])
@@ -63,8 +62,6 @@ const RecipesCollection = () => {
                             className='form-control'
                             onChange={handleTextCange}
                         />
-
-                        {/* <input type='submit' value='search' className='btn btn-outline-success my-2 my-sm-0' onClick={submitSearch} /> */}
                     </div>
                 </form>
             </div>
