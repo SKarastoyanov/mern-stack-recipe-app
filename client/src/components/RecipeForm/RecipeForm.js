@@ -43,8 +43,9 @@ const RecipeForm = ({ recipeToEdit, setMessages }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!recipeToEdit) {
-            debugger
             recipeState.chefId = loggedUser._id;
+            recipeState.ingredients = recipeState.ingredients.split(',');
+            recipeState.tags = recipeState.tags.split(',');
             axios
                 .post(`${API_BASE_URL}/api/recipes`, recipeState)
                 .then(navigate(PATHS.RECIPE_COLLECTION))

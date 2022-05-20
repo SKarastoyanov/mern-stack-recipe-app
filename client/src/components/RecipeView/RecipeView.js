@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import SplitPane from 'react-split-pane'
 
-import { API_BASE_URL, PATHS } from '../../Constants'
+import { API_BASE_URL, PATHS, ROLES } from '../../Constants'
 import { updateUser } from '../../state/actions/userActions'
 import './style.css'
 
@@ -160,15 +160,16 @@ const RecipeView = ({ setRecipeToEdit }) => {
                     </div>
                     <div className='float-end'>
                         <div className='button-panel'>
-                            <div>
-                                <button
-                                    className='btn btn-success'
-                                    type='edit'
-                                    name='edit'
-                                    onClick={onEditRecipe}>
-                                    Edit Recipe
-                                </button>
-                            </div>
+                            {loggedUser._id === recipe.chefId || loggedUser.role === ROLES.CHEF
+                                ? <div>
+                                    <button
+                                        className='btn btn-success'
+                                        type='edit'
+                                        name='edit'
+                                        onClick={onEditRecipe}>
+                                        Edit Recipe
+                                    </button>
+                                </div> : null}
                             <div>
                                 <button
                                     id='favourites'
@@ -179,15 +180,16 @@ const RecipeView = ({ setRecipeToEdit }) => {
                                     Add to Favourites
                                 </button>
                             </div>
-                            <div>
-                                <button
-                                    className='btn btn-danger'
-                                    type='delete'
-                                    name='delete'
-                                    onClick={onDeleteRecipe}
-                                >Delete Recipe
-                                </button>
-                            </div>
+                            {loggedUser._id === recipe.chefId || loggedUser.role === ROLES.CHEF
+                                ? <div>
+                                    <button
+                                        className='btn btn-danger'
+                                        type='delete'
+                                        name='delete'
+                                        onClick={onDeleteRecipe}
+                                    >Delete Recipe
+                                    </button>
+                                </div> : null}
                         </div>
                     </div>
                 </div>

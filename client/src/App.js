@@ -58,7 +58,7 @@ export default function App() {
           <Route path={PATHS.HOME} element={<Main />} />
           <Route path={PATHS.RECIPE_COLLECTION} element={<RecipesCollection />} />
           <Route path={`${PATHS.RECIPE_COLLECTION}/:recipeId`} element={<RecipeView setRecipeToEdit={setRecipeToEdit} />} />
-          {loggedUser?.role === ROLES.CHEF
+          {loggedUser
             ? <Route path={PATHS.ADD_RECIPE} element={<RecipeForm setMessages={setMessages} />} />
             : null}
           <Route path={PATHS.EDIT_RECIPE} element={<RecipeForm recipeToEdit={recipeToEdit} />} />
