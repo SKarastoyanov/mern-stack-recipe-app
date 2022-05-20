@@ -35,7 +35,7 @@ const Header = ({ setMessages }) => {
                             Recipes Collection
                         </Link>
                     </li>
-                    {loggedUser?.role === ROLES.CHEF
+                    {loggedUser
                       ? <li><Link className='nav-link px-2 link-success' to={PATHS.ADD_RECIPE}>Add Recipe</Link></li>
                     : null}
                     {loggedUser?.role === ROLES.CHEF
@@ -56,7 +56,7 @@ const Header = ({ setMessages }) => {
                     </Link>
                     {loggedUser ?
                         <Link
-                            to={`${PATHS.USERS}/${loggedUser._id}`}
+                            to={`${PATHS.USERS}/${loggedUser._id}`}                      
                         >
                             <img
                                 src={loggedUser.img}

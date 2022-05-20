@@ -11,3 +11,8 @@
     align-items: center;
     flex-flow: column wrap;
 }
+
+#userInput {
+    text-align: center;
+    margin: 10px;
+}

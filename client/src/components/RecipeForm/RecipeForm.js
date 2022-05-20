@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 import { API_BASE_URL, PATHS } from '../../Constants';
+import { updateUser } from '../../state/actions/userActions';
 import './style.css';
-
 
 const recipeFields = {
     chefId: 'chefId',
@@ -21,10 +22,10 @@ const recipeFields = {
 }
 
 const newRecipe = {
-    [recipeFields.chefId]: '624e9107098c719671cbb156', //to be fixed
+    [recipeFields.chefId]: 0,
     [recipeFields.title]: '',
     [recipeFields.content]: '',
-    [recipeFields.cookingTime]: '60',   //to be fixed
+    [recipeFields.cookingTime]: 60,
     [recipeFields.ingredients]: '',
     [recipeFields.imageUrl]: '',
     [recipeFields.description]: '',
@@ -34,23 +35,50 @@ const newRecipe = {
 }
 
 const RecipeForm = ({ recipeToEdit, setMessages }) => {
+    const dispatch = useDispatch();
+    const loggedUser = useSelector((state) => state.users.loggedUser);
     const [recipeState, setRecipeState] = useState(recipeToEdit || newRecipe);
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!recipeToEdit) {
+            recipeState.chefId = loggedUser._id;
+            recipeState.ingredients = recipeState.ingredients.split(',');
+            recipeState.tags = recipeState.tags.split(',');
             axios
-            .post(`${API_BASE_URL}/api/recipes`, recipeState)
-            .then(navigate(PATHS.RECIPE_COLLECTION))
-            .catch(error => console.log('Recipe Creation Unsuccessful: ', error))
-            setMessages(`Recipe ${recipeState.title} updated successfully!`)
+                .post(`${API_BASE_URL}/api/recipes`, recipeState)
+                .then(navigate(PATHS.RECIPE_COLLECTION))
+                .catch(error => console.log('Recipe Creation Unsuccessful: ', error));
+            setMessages(`Recipe ${recipeState.title} created successfully!`);
         } else {
-            axios.put(`${API_BASE_URL}/api/recipes/${recipeState._id}`, recipeState)
-            .then(navigate(PATHS.RECIPE_COLLECTION))
-            .catch(error => console.log('Recipe Update Unsuccessful: ', error))
+            axios
+                .put(`${API_BASE_URL}/api/recipes/${recipeState._id}`, recipeState)
+                .then(navigate(PATHS.RECIPE_COLLECTION))
+                .catch(error => console.log('Recipe Update Unsuccessful: ', error))
             setMessages(`Recipe ${recipeState.title} added successfully!`)
         }
+
+        addRecipeToOwnCollection();
+    }
+
+    const addRecipeToOwnCollection = () => {
+        axios
+            .get(`${API_BASE_URL}/api/recipes`)
+            .then(res => {
+                debugger
+                let lastCreatedRecipe = res.data.filter(recipe => recipe.chefId === loggedUser._id).sort((a, b) => (a.created < b.created ? 1 : -1)).shift();
+                if (!loggedUser.ownRecipes.includes(lastCreatedRecipe)) {
+                    loggedUser.ownRecipes = [...loggedUser.ownRecipes, lastCreatedRecipe];
+
+                    //update localstorage data
+                    localStorage.removeItem('user');
+                    localStorage.setItem('user', JSON.stringify(loggedUser));
+                    //update state
+                    dispatch(updateUser(loggedUser._id, loggedUser));
+                }
+            })
+            .catch(error => console.log('Fetching Last Created Recipe Error: ', error))
     }
 
     const handleReset = (event) => {

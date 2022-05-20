@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Footer from './components/Footer/Footer';
@@ -14,8 +14,8 @@ import ProfileView from './components/ProfileView/ProfileView';
 import UsersCollections from './components/UsersCollections/UsersCollections';
 import { PATHS, ROLES } from './Constants';
 import Main from './components/Main/Main';
-import './App.css'
 import { logUser } from './state/actions/userActions';
+import './App.css'
 
 const About = lazy(() => import('./components/About/About'))
 
@@ -58,7 +58,7 @@ export default function App() {
           <Route path={PATHS.HOME} element={<Main />} />
           <Route path={PATHS.RECIPE_COLLECTION} element={<RecipesCollection />} />
           <Route path={`${PATHS.RECIPE_COLLECTION}/:recipeId`} element={<RecipeView setRecipeToEdit={setRecipeToEdit} />} />
-          {loggedUser?.role === ROLES.CHEF
+          {loggedUser
             ? <Route path={PATHS.ADD_RECIPE} element={<RecipeForm setMessages={setMessages} />} />
             : null}
           <Route path={PATHS.EDIT_RECIPE} element={<RecipeForm recipeToEdit={recipeToEdit} />} />
@@ -68,6 +68,7 @@ export default function App() {
             ? <Route path={PATHS.USERS} exact element={<UsersCollections />} />
             : null}
           <Route path={`${PATHS.USERS}/:userId`} element={<ProfileView setUserToEdit={setUserToEdit} />} />
+          <Route path={`${PATHS.USERS}/:userId/:recipeId`} element={<RecipeView setRecipeToEdit={setRecipeToEdit} />} />
           <Route path={PATHS.EDIT_USER} element={<SignUpForm userToEdit={userToEdit} />} />
           {/* Lazy Loaded */}
           <Route path={PATHS.ABOUT} element={<About />} />

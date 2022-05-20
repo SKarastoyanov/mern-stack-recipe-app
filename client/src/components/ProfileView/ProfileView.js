@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SplitPane from 'react-split-pane';
 import axios from 'axios';
 
+import { logout } from '../../state/actions/userActions';
 import Recipe from '../Recipe/Recipe'
 import { API_BASE_URL, PATHS } from '../../Constants';
 import './style.css'
@@ -10,22 +12,23 @@ import './style.css'
 const ProfileView = ({ setUserToEdit }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const locationParts = location.pathname.split('/');
-  const userId = locationParts[locationParts.length - 1]
+  const userId = locationParts[locationParts.length - 1];
   const [selectedUser, setSelectedUser] = useState(null);
-  const [collectionToView, setCollectionToView] = useState([])
+  const [collectionToView, setCollectionToView] = useState(null);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/api/users/${userId}`)
       .then((res) => {
         const user = res.data;
         setSelectedUser(user)
-        setCollectionToView(user.ownRecipes)
+        setCollectionToView(user.favourites)
       })
       .catch(error => console.log('Fetching UsersById Error: ', error))
-  }, [])
+  }, [userId])
 
-  if (!selectedUser) {
+  if (!selectedUser || !collectionToView) {
     return null
   }
 
@@ -39,16 +42,28 @@ const ProfileView = ({ setUserToEdit }) => {
 
   const showOwnCollection = (event) => {
     event.preventDefault();
+    console.log("selectedUser own collection", selectedUser.ownRecipes)
     setCollectionToView(selectedUser.ownRecipes)
     recipeItem.forEach(element => element.style.background = '#d9fad2');
   }
 
   const deleteSelectedUser = (event) => {
     event.stopPropagation()
-    axios.delete(`${API_BASE_URL}/api/users/${userId}`)
-      .then(navigate(PATHS.HOME)
-      )
-      .catch(error => console.log('User Delete not successful', error))
+    const userAnswer = window.confirm(`If you delete your profile you will lost all your own recipes and all favorites recipes.
+    You won't be able to recover it! 
+    Are you absolutely sure you want to delete it?`)
+
+    if (userAnswer === true) {
+      axios.delete(`${API_BASE_URL}/api/users/${userId}`)
+        .then(navigate(PATHS.HOME)
+        )
+        .catch(error => console.log('User Delete not successful', error))
+    }
+
+    dispatch(logout());
+    window.localStorage.removeItem('user')
+    const authEvent = new Event('localStorageAuthEvent')
+    window.dispatchEvent(authEvent)
   }
 
   const onEditUser = (event) => {

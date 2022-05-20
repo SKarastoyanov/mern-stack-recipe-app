@@ -10,7 +10,6 @@ const UsersCollections = () => {
     const { users: usersList, loading } = useSelector((state) => state.users);
 
     useEffect(() => {
-        console.log("dispatch")
         dispatch(getUsers());
     }, [])
 

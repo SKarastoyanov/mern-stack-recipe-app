@@ -21,7 +21,6 @@ const LoginForm = ({ setMessages }) => {
     const submitLoginForm = (data) => {
          axios.post(`${API_BASE_URL}/api/login`, data)
             .then(res => {
-                console.log(res)
                 const user = {
                     _id: res.data._id,
                     firstName: res.data.firstName,
@@ -45,6 +44,8 @@ const LoginForm = ({ setMessages }) => {
                 navigate(PATHS.HOME);
 
             }).catch(error => console.log(error.error))
+
+            
     }
 
     return (
@@ -55,6 +56,7 @@ const LoginForm = ({ setMessages }) => {
                         type='text'
                         className='form-control'
                         placeholder='Login name'
+                        autoComplete='loginName'
                         {...register('loginName', { required: true, maxLength: 15 })} />
                     <label htmlFor='floatingInput'>Login name</label>
                     <p>{errors.loginName?.message}</p>
@@ -64,6 +66,7 @@ const LoginForm = ({ setMessages }) => {
                         className='form-control'
                         type='password'
                         placeholder='Password'
+                        autoComplete='password'
                         {...register('password', { required: true })} />
                     <label id='passHelp' htmlFor='floatingInput'>Password</label>
                 </div>
