@@ -11,48 +11,39 @@ const STATUS_SUSPENDED = "STATUS_SUSPENDED";
 //Create Schema
 const UserSchema = new Schema({
     firstName: {
-        type: String,
-        required: true
+        type: String
     },
     lastName: {
-        type: String,
-        required: true
+        type: String
     },
     loginName: {
         type: String,
-        required: true
+        required: [true, 'Please add a login name']
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Please add a password']
     },
     gender: {
-        type: String,
-        required: true
+        type: String
     },
     role: {
-        type: String,
-        required: true
+        type: String
     },
     img: {
-        type: String,
-        required: true
+        type: String
     },
     introduction: {
-        type: String,
-        required: true
+        type: String
     },
     userStatus: {
-        type: String,
-        required: true
+        type: String
     },
     ownRecipes: {
-        type: [],
-        required: true
+        type: []
     },
     favourites: {
-        type: [],
-        required: true
+        type: []
     },
     registrationDate: {
         type: Date,
