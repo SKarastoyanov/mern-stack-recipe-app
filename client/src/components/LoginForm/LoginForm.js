@@ -43,7 +43,7 @@ const LoginForm = ({ setMessages }) => {
                 window.dispatchEvent(event);
                 navigate(PATHS.HOME);
 
-            }).catch(error => console.log(error.error))
+            }).catch(error => console.log(error))
 
             
     }
